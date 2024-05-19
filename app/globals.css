@@ -61,7 +61,7 @@ body {
   overflow: hidden;
 }
 
-.group:hover .submenucardslide {
+.group:hover .submenucardslideFromRight {
   animation: fadeInFromRight 0.5s ease-in-out;
 }
 
