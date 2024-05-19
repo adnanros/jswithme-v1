@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int        @id @default(autoincrement())
+  name     String?    @db.VarChar(255)
+  email    String     @unique @db.VarChar(255)
+  sections Heading1[]
+}
+
+model Heading1 {
+  id          Int        @id(map: "Section_pkey") @default(autoincrement())
+  title       String     @db.VarChar(255)
+  createdAt   DateTime   @default(now()) @db.Timestamp(6)
+  authorId    Int
+  text        String     @default("")
+  user        User       @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Section_authorId_fkey")
+  subSections Heading2[]
+}
+
+model Heading2 {
+  id              Int        @id @default(autoincrement())
+  title           String     @db.VarChar(255)
+  createdAt       DateTime   @default(now()) @db.Timestamp(6)
+  parentSectionId Int
+  text            String     @default("")
+  parentSection   Heading1   @relation(fields: [parentSectionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "SubSection_parentSectionId_fkey")
+  subSections     Heading3[]
+}
+
+model Heading3 {
+  id              Int        @id @default(autoincrement())
+  title           String     @db.VarChar(255)
+  createdAt       DateTime   @default(now()) @db.Timestamp(6)
+  parentSectionId Int
+  text            String     @default("")
+  parentSection   Heading2   @relation(fields: [parentSectionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "SubSection_parentSectionId_fkey")
+  subSections     Heading4[]
+}
+
+model Heading4 {
+  id              Int      @id @default(autoincrement())
+  title           String   @db.VarChar(255)
+  createdAt       DateTime @default(now()) @db.Timestamp(6)
+  parentSectionId Int
+  text            String   @default("")
+  parentSection   Heading3 @relation(fields: [parentSectionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "SubSection_parentSectionId_fkey")
+}
