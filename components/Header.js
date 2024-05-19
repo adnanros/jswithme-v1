@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useDarkMode } from "../app/DarkModeContext";
 import SearchBar from "./SearchBar";
+import MainMenu from "./MainMenu";
 
 function Header({isScrolled, toggleModal}) {
   // Mobile SideBar Toggler
@@ -16,14 +17,22 @@ function Header({isScrolled, toggleModal}) {
 
   const clickHandler = () => {toggleDarkMode()}
 
+  // Static Menu Items
+  const menuItems = [{title: "FirstItem"}, {title: "SecondItem"}];
   return (
     <div className={`grid grid-cols-3 w-full px-5 py-3 fixed z-10 ${isScrolled? 'opacity-80': ''}`}
     style={{background: isScrolled? '#0F172A': ''}}>
-      <div>
-        <span>LOGO</span><span>Brand</span>
-        <button className="" onClick={sideBarToggler}>
-          T
+      
+      <div className="flex">
+      <span className="mx-2">LOGO</span>
+        {/* Main Menu Components Contains nested 
+        components [SubMenuCard, SubCategorySubMenu,] */}
+        <MainMenu items={menuItems}/> 
+        <button className="lg:hidden" onClick={sideBarToggler}>
+          Menu-Mob
         </button>
+
+        {/* Mobile Menu Should be placed here */}
         
       </div>
       <div><SearchBar toggleModal={toggleModal}/></div>
