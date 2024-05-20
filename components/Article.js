@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import MainSectionCard from "./MainSectionCard";
 import { useDarkMode } from "../app/DarkModeContext";
 

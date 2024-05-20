@@ -35,6 +35,7 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     // console.log(useDarkMode());
     const handleScroll = () => {
+
       // Check if the scroll position is greater than 0
       // if(sideMenuLeft.current){
       //   setOffset(sideMenuLeft.current.clientWidth);
